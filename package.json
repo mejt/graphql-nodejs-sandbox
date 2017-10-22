@@ -1,0 +1,33 @@
+{
+  "name": "grapgql-nodejs-sandbox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js --exec babel-node --presets es2015,stage-2",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mejt/graphql-nodejs-sandbox.git"
+  },
+  "author": "Mateusz Książek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mejt/graphql-nodejs-sandbox/issues"
+  },
+  "homepage": "https://github.com/mejt/graphql-nodejs-sandbox#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-graphql": "^0.6.11",
+    "graphql": "^0.11.7",
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.12.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "nodemon": "^1.12.1"
+  }
+}
