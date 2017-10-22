@@ -14,4 +14,4 @@ const bookSchema = new Schema({
     releaseDate: Date
 });
 
-export default mongoose.model('Book', bookSchema);
+module.exports = mongoose.model('Book', bookSchema);

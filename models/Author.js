@@ -1,15 +1,18 @@
 'use strict';
 
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
+const SchemaObjectId = Schema.Types.ObjectId;
+const ObjectId = mongoose.Types.ObjectId;
 
 const authorSchema = Schema({
-    _id: Schema.Types.ObjectId,
+    _id: { type: SchemaObjectId, default: () => new ObjectId() },
     name: String,
     bio: String,
     birthday: Date,
     sex: String,
-    books: [{ type: Schema.Types.ObjectId, ref: 'Book' }]
+    books: [{ type: SchemaObjectId, ref: 'Book' }]
 });
 
-export default mongoose.model('Author', authorSchema);
+module.exports = mongoose.model('Author', authorSchema);
