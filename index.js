@@ -8,7 +8,7 @@ const graphql = require('graphql');
 const Book = require('./models/Book');
 const Author = require('./models/Author');
 
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds227045.mlab.com:27045/heroku_mrm4w4qn`,  {
+mongoose.connect(process.env.MONGODB_URI,  {
     useMongoClient: true
 });
 
