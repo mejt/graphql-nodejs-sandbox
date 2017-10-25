@@ -47,22 +47,45 @@ const schema = graphql.buildSchema(`
         birthday: String
         sex: String
     }
+    
+    input BookInput {
+        title: String
+        shortDescription: String
+        description: String
+        pages: Int
+        authorId: String
+    }
 
     type Mutation {
         addAuthor(input: AuthorInput): Author
+        addBook(input: BookInput): Book
     }
 `);
 
 const root = {
     book: function ({id}) {
-        return Book.findById(id);
+        return Book.findById(new mongoose.Types.ObjectId(id));
     },
     author: function ({id}) {
-        return Author.findById(new mongoose.Types.ObjectId(id));
+        return Author.findById(new mongoose.Types.ObjectId(id)).populate('books');
     },
-    addAuthor: function (input) {
-        let author = new Author(input.input);
+    addAuthor: function ({input}) {
+        let author = new Author(input);
         return author.save();
+    },
+    addBook: function ({input}) {
+        const authorId = new mongoose.Types.ObjectId(input.authorId);
+        return Author.findById(authorId).then(function (author) {
+            input.author = authorId;
+
+            let book = new Book(input);
+            return book.save().then(function (book) {
+                author.books.push(book);
+                return author.save().then(function () {
+                    return book;
+                });
+            });
+        });
     }
 };
 
