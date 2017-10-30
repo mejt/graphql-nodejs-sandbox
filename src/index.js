@@ -36,6 +36,7 @@ const schema = graphql.buildSchema(`
     }
     
     type Query {
+        authors: [Author]
         book(id: String): Book
         author(id: String): Author
     }
@@ -64,7 +65,10 @@ const schema = graphql.buildSchema(`
 
 const root = {
     book: function ({id}) {
-        return Book.findById(new mongoose.Types.ObjectId(id));
+        return Book.findById(new mongoose.Types.ObjectId(id)).populate('author');
+    },
+    authors: function () {
+        return Author.find().populate('books').exec();
     },
     author: function ({id}) {
         return Author.findById(new mongoose.Types.ObjectId(id)).populate('books');
