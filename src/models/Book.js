@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 const SchemaObjectId = Schema.Types.ObjectId;
-const ObjectId = mongoose.Types.ObjectId;
 
 const bookSchema = new Schema({
     title: String,

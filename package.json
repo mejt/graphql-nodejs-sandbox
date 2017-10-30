@@ -4,7 +4,7 @@
   "description": "GraphQL node sandbox",
   "main": "src/index.js",
   "scripts": {
-    "start": "node build/index.js",
+    "start": "nodemon src/index.js --exec babel-node --presets es2015,stage-2",
     "build": "babel src -d build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/mejt/graphql-nodejs-sandbox#readme",
   "dependencies": {
     "bluebird": "^3.5.1",
+    "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "express-graphql": "^0.6.11",
     "graphql": "^0.11.7",
