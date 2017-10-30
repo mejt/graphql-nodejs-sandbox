@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
-const graphql = require('graphql');
+import * as graphql from 'graphql';
 
 const Book = require('./models/Book');
 const Author = require('./models/Author');
