@@ -5,8 +5,8 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql');
 import * as graphql from 'graphql';
 
-const Book = require('./models/Book');
-const Author = require('./models/Author');
+import Book from './models/Book';
+import Author from './models/Author';
 
 mongoose.connect(process.env.MONGODB_URI,  {
     useMongoClient: true,
