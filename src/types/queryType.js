@@ -1,35 +1,33 @@
-import { GraphQLObjectType, GraphQLString, GraphQLID } from 'graphql';
-const mongoose = require('mongoose');
+'use strict';
+
+import { GraphQLObjectType, GraphQLID, GraphQLList } from 'graphql';
 
 import authorType from './authorType';
 import bookType from './bookType';
 
-import Author from './../models/Author';
-import Book from './../models/Book';
+import * as authorsController from './../controllers/authorsController';
+import * as booksController from './../controllers/booksController';
 
 export default new GraphQLObjectType({
     name: 'Query',
     description: 'Root type for queries',
     fields: {
+        authors: {
+            type: new GraphQLList(authorType),
+            description: 'List of all authors',
+            resolve: authorsController.getAllAuthors
+        },
         author: {
             type: authorType,
             description: 'Get author by ID',
-            args: {
-                id: { type: GraphQLString }
-            },
-            resolve: function ({id}) {
-                return Author.findById(new mongoose.Types.ObjectId(id)).populate('books');
-            }
+            args: { id: { type: GraphQLID } },
+            resolve: authorsController.getAuthorById
         },
         book: {
             type: bookType,
             description: 'Get book by ID',
-            args: {
-                id: { type: GraphQLString }
-            },
-            resolve: function (root, {id}) {
-                return Book.findById(new mongoose.Types.ObjectId(id)).populate('author');
-            }
+            args: { id: { type: GraphQLID } },
+            resolve: booksController.getBookById
         }
     }
 });

@@ -1,3 +1,5 @@
+'use strict';
+
 import { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } from 'graphql';
 import bookType from './bookType';
 

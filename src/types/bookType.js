@@ -1,3 +1,5 @@
+'use strict';
+
 import { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt } from 'graphql';
 import authorType from './authorType'
 
