@@ -10,3 +10,8 @@ export function getAuthorById(root, {id}) {
 export function getAllAuthors() {
     return Author.find().populate('books').exec();
 }
+
+export function addAuthor(root, {input}) {
+    let author = new Author(input);
+    return author.save();
+}
