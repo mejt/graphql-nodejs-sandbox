@@ -17,6 +17,9 @@
   "bugs": {
     "url": "https://github.com/mejt/graphql-nodejs-sandbox/issues"
   },
+  "engines": {
+    "node": "8.7.0"
+  },
   "homepage": "https://github.com/mejt/graphql-nodejs-sandbox#readme",
   "dependencies": {
     "bluebird": "^3.5.1",
