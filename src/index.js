@@ -2,12 +2,9 @@
 
 import mongoose from 'mongoose';
 import express from 'express';
-import graphqlHTTP from 'express-graphql';
 import dotenv from 'dotenv';
-import { GraphQLSchema } from 'graphql';
 
-import queryType from './types/queryType';
-import mutationType from './types/mutationType';
+import {init as initGraphQLSchema} from './graphql/schema';
 
 dotenv.config();
 
@@ -17,14 +14,6 @@ mongoose.connect(process.env.MONGODB_URI,  {
 });
 
 const app = express();
-const schema = new GraphQLSchema({
-    query: queryType,
-    mutation: mutationType
-});
-
-app.use('/', graphqlHTTP({
-    schema: schema,
-    graphiql: true
-}));
+app.use('/', initGraphQLSchema());
 
 app.listen(process.env.PORT || 4000);

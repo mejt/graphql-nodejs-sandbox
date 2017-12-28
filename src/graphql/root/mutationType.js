@@ -2,13 +2,13 @@
 
 import { GraphQLObjectType } from 'graphql';
 
-import authorType from './authorType';
-import bookType from './bookType';
-import authorInput from './authorInput';
-import bookInput from './bookInput';
+import authorType from './../type/authorType';
+import bookType from './../type/bookType';
+import authorInput from './../input/authorInput';
+import bookInput from './../input/bookInput';
 
-import * as authorsController from './../controllers/authorsController';
-import * as booksController from './../controllers/booksController';
+import * as authorsController from './../../controllers/authorsController';
+import * as booksController from './../../controllers/booksController';
 
 export default new GraphQLObjectType({
     name: 'Mutation',

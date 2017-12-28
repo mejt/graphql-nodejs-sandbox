@@ -2,11 +2,11 @@
 
 import { GraphQLObjectType, GraphQLID, GraphQLList } from 'graphql';
 
-import authorType from './authorType';
-import bookType from './bookType';
+import authorType from './../type/authorType';
+import bookType from './../type/bookType';
 
-import * as authorsController from './../controllers/authorsController';
-import * as booksController from './../controllers/booksController';
+import * as authorsController from './../../controllers/authorsController';
+import * as booksController from './../../controllers/booksController';
 
 export default new GraphQLObjectType({
     name: 'Query',
@@ -28,6 +28,11 @@ export default new GraphQLObjectType({
             description: 'Get book by ID',
             args: { id: { type: GraphQLID } },
             resolve: booksController.getBookById
+        },
+        books: {
+            type: new GraphQLList(bookType),
+            description: 'List of all books',
+            resolve: booksController.getAllBooks
         }
     }
 });

@@ -9,17 +9,23 @@ export function getBookById(root, {id}) {
     return Book.findById(new mongoose.Types.ObjectId(id)).populate('author');
 }
 
-export function addBook(root, {input}) {
-    const authorId = new mongoose.Types.ObjectId(input.authorId);
-    return Author.findById(authorId).then(function (author) {
-        input.author = authorId;
+export function getAllBooks() {
+    return Book.find().populate('author').exec();
+}
 
-        let book = new Book(input);
-        return book.save().then(function (book) {
-            author.books.push(book);
-            return author.save().then(function () {
-                return book;
-            });
-        });
-    });
+export async function addBook(root, {input}) {
+    const authorId = new mongoose.Types.ObjectId(input.authorId);
+    const author = await Author.findById(authorId);
+
+    if (!author) {
+        return null;
+    }
+
+    input.author = authorId;
+    const book = await new Book(input).save();
+
+    author.books.push(book);
+    await author.save();
+
+    return getBookById(null, book);
 }
