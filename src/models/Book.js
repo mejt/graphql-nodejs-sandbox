@@ -1,6 +1,6 @@
 'use strict';
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 const SchemaObjectId = Schema.Types.ObjectId;
@@ -15,4 +15,4 @@ const bookSchema = new Schema({
     releaseDate: Date
 });
 
-module.exports = mongoose.model('Book', bookSchema);
+export default mongoose.model('Book', bookSchema);
