@@ -1,3 +1,5 @@
+'use strict';
+
 import { GraphQLSchema } from 'graphql';
 import graphqlHTTP from 'express-graphql';
 

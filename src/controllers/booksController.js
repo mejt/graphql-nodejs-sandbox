@@ -13,12 +13,12 @@ export function getAllBooks() {
     return Book.find().populate('author').exec();
 }
 
-export async function addBook(root, {input}) {
-    const authorId = new mongoose.Types.ObjectId(input.authorId);
+export async function addBook(root, {authorId, input}) {
+    const authorId = new mongoose.Types.ObjectId(authorId);
     const author = await Author.findById(authorId);
 
     if (!author) {
-        return null;
+        throw new Error('Author is not exists');
     }
 
     input.author = authorId;
