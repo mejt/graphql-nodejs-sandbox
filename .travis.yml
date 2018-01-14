@@ -14,12 +14,9 @@ before_script:
 script:
   - npm test
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT --coverage-input-type lcov
 before_deploy:
   - npm run build
-  - rm src
-  - rm test
-  - rm coverage
 deploy:
   provider: heroku
   skip_cleanup: true
