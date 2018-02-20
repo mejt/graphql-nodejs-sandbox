@@ -2,8 +2,8 @@
 
 import mongoose from 'mongoose';
 
-import Author from './../models/Author';
-import Book from './../models/Book';
+import Author from '../models/authorModel';
+import Book from '../models/bookModel';
 
 export function getBookById(root, {id}) {
     return Book.findById(new mongoose.Types.ObjectId(id)).populate('author');

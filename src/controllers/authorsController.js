@@ -1,7 +1,7 @@
 'use strict';
 
 import mongoose from 'mongoose';
-import Author from './../models/Author';
+import Author from '../models/authorModel';
 
 export function getAuthorById(root, {id}) {
     return Author.findById(new mongoose.Types.ObjectId(id)).populate('books');
