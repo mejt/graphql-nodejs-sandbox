@@ -6,15 +6,15 @@ export default class CreateBook {
         this._authorDao = authorDao;
     }
 
-    async execute(root, {authorId, input}) {
+    async execute(authorId, inputData) {
         const author = await this._authorDao.getById(authorId);
 
         if (!author) {
             throw new Error('Author does not exist');
         }
 
-        const book = await this._bookDao.create(author.id, input);
-        await this._authorDao.addBook(book);
+        const book = await this._bookDao.create(author.id, inputData);
+        await this._authorDao.assignBookToAuthor(author, book);
 
         return book;
     }

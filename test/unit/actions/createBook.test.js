@@ -8,17 +8,18 @@ describe('CreateBookAction', () => {
 
     beforeEach(() => {
         bookDao = { create: jest.fn() };
-        authorDao = { getById: jest.fn(), addBook: jest.fn() };
+        authorDao = { getById: jest.fn(), assignBookToAuthor: jest.fn() };
     });
 
     test('should throw error if author does not exist', async () => {
         // given
-        authorDao.getById.mockResolvedValue(undefined);
+        //console.log(authorDao.getById.);
+        authorDao.getById.mockReturnValue(Promise.resolve(undefined));
         const createBook = new CreateBook(bookDao, authorDao);
 
         try {
             // when
-            await createBook.execute(null, {});
+            await createBook.execute('1', { title: 'Title' });
         } catch (error) {
             // then
             expect(error.message).toEqual('Author does not exist')
@@ -32,21 +33,21 @@ describe('CreateBookAction', () => {
         const input = { title: 'Title' };
         const createdBookMock = { title: input.title, id: bookId };
 
-        authorDao.getById.mockResolvedValue({ id: authorId });
-        bookDao.create.mockResolvedValue(createdBookMock);
+        authorDao.getById.mockReturnValue(Promise.resolve({ id: authorId }));
+        bookDao.create.mockReturnValue(Promise.resolve(createdBookMock));
 
         const createBook = new CreateBook(bookDao, authorDao);
 
         // when
-        const result = await createBook.execute(null, { authorId: '1', input });
+        const result = await createBook.execute('1', input );
 
         // then
         const createArgs = bookDao.create.mock.calls[0];
-        const addBookArgs = authorDao.addBook.mock.calls[0];
+        const addBookArgs = authorDao.assignBookToAuthor.mock.calls[0];
 
         expect(createArgs[0]).toEqual(authorId);
         expect(createArgs[1]).toEqual(input);
-        expect(addBookArgs[0]).toEqual(createdBookMock);
+        expect(addBookArgs[1]).toEqual(createdBookMock);
         expect(result).toEqual(createdBookMock);
     });
 });

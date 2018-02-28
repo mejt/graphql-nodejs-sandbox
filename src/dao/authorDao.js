@@ -1,15 +1,25 @@
 'use strict';
 
+import mongoose from "mongoose";
+
 export class AuthorDao {
-    /**
-     *
-     * @param {Book} bookModel
-     */
-    constructor(bookModel) {
-        this._bookModel = bookModel;
+    constructor(authorModel) {
+        this._authorModel = authorModel;
     }
 
     getById(authorId) {
+        return this._authorModel
+            .findById(new mongoose.Types.ObjectId(authorId))
+            .populate('author');
+    }
 
+    getAll() {
+        return this._authorModel
+            .find().populate('books').exec();
+    }
+
+    assignBookToAuthor(author, book) {
+        author.books.push(book);
+        return author.save();
     }
 }
