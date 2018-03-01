@@ -14,7 +14,7 @@ export default class ObjectType {
         return new GraphQLObjectType({
             name: this._name,
             description: this._description,
-            fields: _.reduce(this._fields, (result, field) => result[field.getName()] = field.schema(), {})
+            fields: _.reduce(this._fields, (result, field) => _.set(result, field.getName(), field.schema()), {})
         });
 
     }

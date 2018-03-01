@@ -4,7 +4,8 @@ import mongoose from 'mongoose';
 import express from 'express';
 import dotenv from 'dotenv';
 
-import {init as initGraphQLSchema} from './graphql/schema';
+import graphqlHTTP from "express-graphql";
+import SchemaFactory from "./graphql/schemaFactory";
 
 dotenv.config();
 
@@ -14,6 +15,11 @@ mongoose.connect(process.env.MONGODB_URI,  {
 });
 
 const app = express();
-app.use('/', initGraphQLSchema());
+
+const schemaFactory = new SchemaFactory();
+app.use('/', graphqlHTTP({
+    schema: schemaFactory.create(),
+    graphiql: true
+}));
 
 app.listen(process.env.PORT || 4000);

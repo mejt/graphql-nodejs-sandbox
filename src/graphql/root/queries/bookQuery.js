@@ -5,8 +5,13 @@ import { GraphQLID } from 'graphql';
 import bookType from './../../type/bookType';
 
 export default class BookQuery {
-    constructor(action) {
+    constructor(name, action) {
+        this._name = name;
         this._action = action;
+    }
+
+    getName() {
+        return this._name;
     }
 
     schema() {
