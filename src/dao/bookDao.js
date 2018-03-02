@@ -15,6 +15,8 @@ export class BookDao {
 
     create(authorId, data) {
         data.author = authorId;
-        return
+
+        const book = new this._authorModel(data);
+        return book.save();
     }
 }

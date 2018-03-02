@@ -3,6 +3,7 @@
 import { GraphQLSchema } from 'graphql';
 
 import queryTypeFactory from './root/queryTypeFactory';
+import mutationTypeFactory from "./root/mutationTypeFactory";
 
 export default class SchemaFactory {
     constructor(authorsDao, booksDao) {
@@ -12,7 +13,8 @@ export default class SchemaFactory {
 
     create() {
         return new GraphQLSchema({
-            query: queryTypeFactory(this._authorsDao, this._booksDao)
+            query: queryTypeFactory(this._authorsDao, this._booksDao),
+            mutation: mutationTypeFactory(this._authorsDao, this._booksDao)
         });
     }
 }

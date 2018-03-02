@@ -1,6 +1,6 @@
 'use strict';
 
-export default class CreateBook {
+export default class CreateBookAction {
     constructor(bookDao, authorDao) {
         this._bookDao = bookDao;
         this._authorDao = authorDao;

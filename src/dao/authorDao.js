@@ -18,6 +18,11 @@ export class AuthorDao {
             .find().populate('books').exec();
     }
 
+    create(authorData) {
+        const author = new this._authorModel(authorData);
+        return author.save();
+    }
+
     assignBookToAuthor(author, book) {
         author.books.push(book);
         return author.save();
