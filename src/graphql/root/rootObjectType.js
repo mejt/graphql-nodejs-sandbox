@@ -21,5 +21,6 @@ export default class ObjectType {
 
     addField(field) {
         this._fields.push(field);
+        return this;
     }
 }

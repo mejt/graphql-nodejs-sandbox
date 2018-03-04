@@ -14,10 +14,10 @@ import GetBooksAction from "../../actions/getBooksAction";
 
 export default function queryTypeFactory(authorsDao, booksDao) {
     const queryType = new ObjectType('Query', 'Root type for queries');
-    queryType.addField(new AuthorsQuery('authors', new GetAuthorsAction(authorsDao)));
-    queryType.addField(new AuthorQuery('author', new GetAuthorAction(authorsDao)));
-    queryType.addField(new BookQuery('book', new GetBookAction(booksDao)));
-    queryType.addField(new BooksQuery('books', new GetBooksAction(booksDao)));
+    queryType.addField(new AuthorsQuery('authors', new GetAuthorsAction(authorsDao)))
+        .addField(new AuthorQuery('author', new GetAuthorAction(authorsDao)))
+        .addField(new BookQuery('book', new GetBookAction(booksDao)))
+        .addField(new BooksQuery('books', new GetBooksAction(booksDao)));
 
     return queryType.schema();
 }
