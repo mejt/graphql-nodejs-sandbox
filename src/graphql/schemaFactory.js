@@ -7,14 +7,14 @@ import mutationTypeFactory from "./root/mutationTypeFactory";
 
 export default class SchemaFactory {
     constructor(authorsDao, booksDao) {
-        this._authorsDao = authorsDao;
-        this._booksDao = booksDao;
+        this._queryFactory = queryTypeFactory(authorsDao, booksDao);
+        this._mutationFactory = mutationTypeFactory(authorsDao, booksDao);
     }
 
     create() {
         return new GraphQLSchema({
-            query: queryTypeFactory(this._authorsDao, this._booksDao),
-            mutation: mutationTypeFactory(this._authorsDao, this._booksDao)
+            query: this._queryFactory(),
+            mutation: this._mutationFactory()
         });
     }
 }

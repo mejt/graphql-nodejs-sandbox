@@ -7,6 +7,11 @@ import dotenv from 'dotenv';
 import graphqlHTTP from "express-graphql";
 import SchemaFactory from "./graphql/schemaFactory";
 
+import AuthorDao from "./dao/authorDao";
+import BookDao from "./dao/bookDao";
+import AuthorModel from './models/authorModel';
+import BookModel from './models/bookModel';
+
 dotenv.config();
 
 mongoose.connect(process.env.MONGODB_URI,  {
@@ -16,7 +21,10 @@ mongoose.connect(process.env.MONGODB_URI,  {
 
 const app = express();
 
-const schemaFactory = new SchemaFactory();
+const authorDao = new AuthorDao(AuthorModel);
+const bookDao = new BookDao(BookModel);
+
+const schemaFactory = new SchemaFactory(authorDao, bookDao);
 app.use('/', graphqlHTTP({
     schema: schemaFactory.create(),
     graphiql: true

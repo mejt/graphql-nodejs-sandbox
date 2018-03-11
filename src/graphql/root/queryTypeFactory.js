@@ -13,11 +13,33 @@ import GetBookAction from "../../actions/getBookAction";
 import GetBooksAction from "../../actions/getBooksAction";
 
 export default function queryTypeFactory(authorsDao, booksDao) {
-    const queryType = new ObjectType('Query', 'Root type for queries');
-    queryType.addField(new AuthorsQuery('authors', new GetAuthorsAction(authorsDao)))
-        .addField(new AuthorQuery('author', new GetAuthorAction(authorsDao)))
-        .addField(new BookQuery('book', new GetBookAction(booksDao)))
-        .addField(new BooksQuery('books', new GetBooksAction(booksDao)));
+    return () => {
+        const queryType = new ObjectType('Query', 'Root type for queries');
+        queryType.addField(authorsQuery())
+            .addField(authorQuery())
+            .addField(booksQuery())
+            .addField(bookQuery());
 
-    return queryType.schema();
+        return queryType.schema();
+    };
+
+    function authorsQuery() {
+        const action = new GetAuthorsAction(authorsDao);
+        return new AuthorsQuery('authors', action);
+    }
+
+    function authorQuery() {
+        const action = new GetAuthorAction(authorsDao);
+        return new AuthorQuery('author', action);
+    }
+
+    function booksQuery() {
+        const action = new GetBooksAction(booksDao);
+        return new BooksQuery('books', action);
+    }
+
+    function bookQuery() {
+        const action = new GetBookAction(booksDao);
+        return new BookQuery('book', action);
+    }
 }

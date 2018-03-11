@@ -2,7 +2,7 @@
 
 import mongoose from "mongoose";
 
-export class BookDao {
+export default class BookDao {
     constructor(bookModel) {
         this._authorModel = bookModel;
     }

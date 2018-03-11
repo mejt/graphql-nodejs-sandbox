@@ -2,7 +2,7 @@
 
 export default class GetAuthorsAction {
     constructor(authorsDao) {
-        this._authorssDao = authorsDao;
+        this._authorsDao = authorsDao;
     }
 
     execute(authorId) {
