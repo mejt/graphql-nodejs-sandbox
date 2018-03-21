@@ -17,7 +17,7 @@ export default class BooksQuery {
     schema() {
         return {
             type: new GraphQLList(bookType),
-            description: 'List of all book',
+            description: 'List of all books',
             resolve: () => this._action.execute()
         }
     }

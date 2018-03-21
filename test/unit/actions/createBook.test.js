@@ -12,42 +12,33 @@ describe('CreateBookAction', () => {
     });
 
     test('should throw error if author does not exist', async () => {
-        // given
-        //console.log(authorDao.getById.);
         authorDao.getById.mockReturnValue(Promise.resolve(undefined));
         const createBook = new CreateBook(bookDao, authorDao);
 
         try {
-            // when
             await createBook.execute('1', { title: 'Title' });
         } catch (error) {
-            // then
             expect(error.message).toEqual('Author does not exist')
         }
     });
 
     test('should create book and add to author collection', async () => {
-        // given
         const authorId = '3421-2ASA';
         const bookId = 'WWA-434';
         const input = { title: 'Title' };
-        const createdBookMock = { title: input.title, id: bookId };
+        const fakeBook = { title: input.title, id: bookId };
+        const fakeAuthor = { id: authorId };
 
-        authorDao.getById.mockReturnValue(Promise.resolve({ id: authorId }));
-        bookDao.create.mockReturnValue(Promise.resolve(createdBookMock));
+        authorDao.getById.mockReturnValue(Promise.resolve(fakeAuthor));
+        bookDao.create.mockReturnValue(Promise.resolve(fakeBook));
 
         const createBook = new CreateBook(bookDao, authorDao);
-
-        // when
         const result = await createBook.execute('1', input );
 
-        // then
-        const createArgs = bookDao.create.mock.calls[0];
         const addBookArgs = authorDao.assignBookToAuthor.mock.calls[0];
 
-        expect(createArgs[0]).toEqual(authorId);
-        expect(createArgs[1]).toEqual(input);
-        expect(addBookArgs[1]).toEqual(createdBookMock);
-        expect(result).toEqual(createdBookMock);
+        expect(bookDao.create).toHaveBeenCalledWith(authorId, input);
+        expect(authorDao.assignBookToAuthor).toHaveBeenCalledWith(fakeAuthor, fakeBook);
+        expect(result).toEqual(fakeBook);
     });
 });
