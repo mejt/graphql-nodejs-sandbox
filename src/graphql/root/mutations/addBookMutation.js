@@ -1,10 +1,9 @@
 'use strict';
 
-import { GraphQLID } from 'graphql';
+import { GraphQLID, GraphQLNonNull } from 'graphql';
 
-import authorType from './../../type/authorType';
-import authorInput from "../../input/authorInput";
 import bookType from "../../type/bookType";
+import bookInput from "../../input/bookInput";
 
 export default class AddBookMutation {
     constructor(name, action) {
@@ -20,8 +19,11 @@ export default class AddBookMutation {
         return {
             type: bookType,
             description: 'Create a new book',
-            args: { input: { type: authorInput } },
-            resolve: (root, { input }) => this._action.execute(input)
+            args: {
+                authorId: { type: new GraphQLNonNull(GraphQLID) },
+                input: { type: bookInput }
+            },
+            resolve: (root, { authorId, input }) => this._action.execute(authorId, input)
         }
     }
 }
