@@ -10,7 +10,7 @@ export default class AuthorDao {
     getById(authorId) {
         return this._authorModel
             .findById(new mongoose.Types.ObjectId(authorId))
-            .populate('author');
+            .populate('books');
     }
 
     getAll() {
