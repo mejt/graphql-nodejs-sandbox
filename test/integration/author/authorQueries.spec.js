@@ -2,8 +2,8 @@
 
 import request from 'supertest';
 
-import AppFactory from './../../src/initServer';
-import configurationProvider from './../../src/configurationProvider';
+import AppFactory from './../../../src/initServer';
+import configurationProvider from './../../../src/configurationProvider';
 
 const appFactory = AppFactory(configurationProvider);
 
