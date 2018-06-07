@@ -21,9 +21,7 @@ describe('Author Queries', () => {
         authorDaoMock.getById = jest.fn();
     });
 
-    afterAll(() => {
-        app.close();
-    });
+    afterAll(() => app.close());
 
     test('should return correct fields for getAuthors query', async () => {
         authorDaoMock.getAll.mockReturnValue([

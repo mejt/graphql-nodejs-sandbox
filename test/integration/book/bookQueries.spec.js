@@ -21,9 +21,7 @@ describe('Book Queries', () => {
         bookDaoMock.getById = jest.fn();
     });
 
-    afterAll(() => {
-        app.close();
-    });
+    afterAll(() => app.close());
 
     test('should return correct fields for getBooks query', async () => {
         bookDaoMock.getAll.mockReturnValue([
