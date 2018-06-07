@@ -12,14 +12,16 @@ describe('Author Queries', () => {
 
     const authorDaoMock = {};
 
-    beforeEach(() => {
-        authorDaoMock.getAll = jest.fn();
-        authorDaoMock.getById = jest.fn();
-
+    beforeAll(() => {
         app = appFactory(authorDaoMock);
     });
 
-    afterEach(() => {
+    beforeEach(() => {
+        authorDaoMock.getAll = jest.fn();
+        authorDaoMock.getById = jest.fn();
+    });
+
+    afterAll(() => {
         app.close();
     });
 

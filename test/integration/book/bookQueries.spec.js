@@ -12,14 +12,16 @@ describe('Book Queries', () => {
 
     const bookDaoMock = {};
 
-    beforeEach(() => {
-        bookDaoMock.getAll = jest.fn();
-        bookDaoMock.getById = jest.fn();
-
+    beforeAll(() => {
         app = appFactory({}, bookDaoMock);
     });
 
-    afterEach(() => {
+    beforeEach(() => {
+        bookDaoMock.getAll = jest.fn();
+        bookDaoMock.getById = jest.fn();
+    });
+
+    afterAll(() => {
         app.close();
     });
 
