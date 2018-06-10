@@ -29,9 +29,9 @@ describe('CreateBookAction', () => {
         const fakeBook = { title: input.title, id: bookId };
         const fakeAuthor = { id: authorId };
 
-        authorDao.getById.mockReturnValue(Promise.resolve(fakeAuthor));
-        bookDao.create.mockReturnValue(Promise.resolve(bookId));
-        bookDao.getById.mockReturnValue(Promise.resolve(fakeBook));
+        authorDao.getById.mockReturnValue(fakeAuthor);
+        bookDao.create.mockReturnValue(bookId);
+        bookDao.getById.mockReturnValue(fakeBook);
 
         const createBook = new CreateBook(bookDao, authorDao);
         const result = await createBook.execute('1', input );
