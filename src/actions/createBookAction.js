@@ -13,9 +13,9 @@ export default class CreateBookAction {
             throw new Error('Author does not exist');
         }
 
-        const book = await this._bookDao.create(author.id, inputData);
-        await this._authorDao.assignBookToAuthor(author, book);
+        const bookId = await this._bookDao.create(author.id, inputData);
+        await this._authorDao.assignBookToAuthor(author, bookId);
 
-        return book;
+        return this._bookDao.getById(bookId);
     }
 }

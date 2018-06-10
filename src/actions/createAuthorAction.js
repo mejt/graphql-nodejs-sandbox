@@ -6,6 +6,7 @@ export default class CreateAuthorAction {
     }
 
     async execute(inputData) {
-        return this._authorDao(inputData);
+        const newAuthorId = await this._authorDao.create(inputData);
+        return this._authorDao.getById(newAuthorId);
     }
 }

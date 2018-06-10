@@ -7,7 +7,7 @@ describe('CreateBookAction', () => {
     let authorDao;
 
     beforeEach(() => {
-        bookDao = { create: jest.fn() };
+        bookDao = { create: jest.fn(), getById: jest.fn() };
         authorDao = { getById: jest.fn(), assignBookToAuthor: jest.fn() };
     });
 
@@ -30,15 +30,14 @@ describe('CreateBookAction', () => {
         const fakeAuthor = { id: authorId };
 
         authorDao.getById.mockReturnValue(Promise.resolve(fakeAuthor));
-        bookDao.create.mockReturnValue(Promise.resolve(fakeBook));
+        bookDao.create.mockReturnValue(Promise.resolve(bookId));
+        bookDao.getById.mockReturnValue(Promise.resolve(fakeBook));
 
         const createBook = new CreateBook(bookDao, authorDao);
         const result = await createBook.execute('1', input );
 
-        const addBookArgs = authorDao.assignBookToAuthor.mock.calls[0];
-
         expect(bookDao.create).toHaveBeenCalledWith(authorId, input);
-        expect(authorDao.assignBookToAuthor).toHaveBeenCalledWith(fakeAuthor, fakeBook);
+        expect(authorDao.assignBookToAuthor).toHaveBeenCalledWith(fakeAuthor, bookId);
         expect(result).toEqual(fakeBook);
     });
 });

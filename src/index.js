@@ -11,7 +11,6 @@ import AuthorModel from './models/authorModel';
 import BookModel from './models/bookModel';
 
 mongoose.connect(process.env.MONGODB_URI, {
-    useMongoClient: true,
     promiseLibrary: require('bluebird')
 });
 

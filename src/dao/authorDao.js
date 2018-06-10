@@ -23,8 +23,8 @@ export default class AuthorDao {
         return author.save();
     }
 
-    assignBookToAuthor(author, book) {
-        author.books.push(book);
+    assignBookToAuthor(author, bookId) {
+        author.books.push(bookId);
         return author.save();
     }
 }
