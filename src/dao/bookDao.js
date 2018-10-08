@@ -9,8 +9,7 @@ export default class BookDao {
 
     getById(bookId) {
         return this._authorModel
-            .findById(new mongoose.Types.ObjectId(bookId))
-            .populate('author');
+            .findById(new mongoose.Types.ObjectId(bookId));
     }
 
     create(authorId, data) {
