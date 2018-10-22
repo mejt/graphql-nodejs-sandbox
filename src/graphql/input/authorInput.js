@@ -1,6 +1,7 @@
 'use strict';
 
 import { GraphQLInputObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import sexType from './../type/sexType';
 
 export default new GraphQLInputObjectType({
     name: 'AuthorInput',
@@ -8,6 +9,6 @@ export default new GraphQLInputObjectType({
         name: {type: new GraphQLNonNull(GraphQLString)},
         bio: {type: GraphQLString},
         birthday: {type: GraphQLString},
-        sex: {type: GraphQLString}
+        sex: {type: sexType}
     })
 });

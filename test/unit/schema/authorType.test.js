@@ -1,6 +1,7 @@
 'use strict';
 
 import { GraphQLString, GraphQLID, GraphQLList, GraphQLNonNull } from 'graphql';
+import sexType from './../../../src/graphql/type/sexType';
 import bookType from './../../../src/graphql/type/bookType';
 import authorType from './../../../src/graphql/type/authorType';
 import authorInput from './../../../src/graphql/input/authorInput';
@@ -29,7 +30,7 @@ describe('Author Type', () => {
     });
 
     test('should have sex field of type String', () => {
-        expect(authorTypeFields).toHaveProperty('sex', getMockedTypeObject('sex'));
+        expect(authorTypeFields).toHaveProperty('sex', getMockedTypeObject('sex', sexType));
     });
 
     test('should have sex field of type List of Books', () => {
@@ -66,7 +67,7 @@ describe('Author Input', () => {
     });
 
     test('should have sex field of type String', () => {
-        expect(authorInputFields).toHaveProperty('sex', getMockedTypeObject('sex'));
+        expect(authorInputFields).toHaveProperty('sex', getMockedTypeObject('sex', sexType));
     });
 
     function getMockedTypeObject(name, type = GraphQLString) {

@@ -1,5 +1,8 @@
 'use strict';
 
+import isbnIsValid from 'isbn-validator';
+import { NotFoundError, ValidationError } from './../errors';
+
 export default class CreateBookAction {
     constructor(bookDao, authorDao) {
         this._bookDao = bookDao;
@@ -7,15 +10,29 @@ export default class CreateBookAction {
     }
 
     async execute(authorId, inputData) {
+        if (inputData.pages && inputData.pages <= 0) {
+            throw new ValidationError('Book must have more than 0 pages');
+        }
+
+        if (inputData.isbn && !isbnIsValid(inputData.isbn)) {
+            throw new ValidationError('ISBN is invalid');
+        }
+
         const author = await this._authorDao.getById(authorId);
 
         if (!author) {
-            throw new Error('Author does not exist');
+            throw new NotFoundError('Author does not exist');
         }
 
-        const bookId = await this._bookDao.create(author.id, inputData);
-        await this._authorDao.assignBookToAuthor(author, bookId);
+        const id = await this._bookDao.create(author.id, inputData);
+        await this._authorDao.assignBookToAuthor(author, id);
 
-        return this._bookDao.getById(bookId);
+        return Object.assign(inputData, { id });
+    }
+
+    _validatePages(pages) {
+        if (pages && pages <= 0) {
+            throw new ValidationError('Book must have more than 0 pages');
+        }
     }
 }
