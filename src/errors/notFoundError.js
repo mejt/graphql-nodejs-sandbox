@@ -4,10 +4,7 @@ import AppError from './appError';
 
 class NotFoundError extends AppError {
     constructor(message) {
-        super();
-
-        this.message = message;
-        this.code = 404;
+        super(message, 404);
     }
 }
 
