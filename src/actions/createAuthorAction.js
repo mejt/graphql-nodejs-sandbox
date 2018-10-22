@@ -5,7 +5,8 @@ export default class CreateAuthorAction {
         this._authorDao = authorDao;
     }
 
-    execute(inputData) {
-        return this._authorDao.create(inputData);
+    async execute(inputData) {
+        const id = this._authorDao.create(inputData);
+        return Object.assign(inputData, { id });
     }
 }

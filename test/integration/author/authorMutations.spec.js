@@ -53,7 +53,7 @@ describe('Author Mutations', () => {
             sex: 'Male'
         };
 
-        authorDaoMock.getById.mockReturnValue(Object.assign({}, newAuthor, { id: "ABC" }));
+        authorDaoMock.create.mockReturnValue("ABC");
 
         const variables = { input: newAuthor };
         const response = await request(app)

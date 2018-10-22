@@ -24,10 +24,10 @@ export default class CreateBookAction {
             throw new NotFoundError('Author does not exist');
         }
 
-        const book = await this._bookDao.create(author.id, inputData);
-        await this._authorDao.assignBookToAuthor(author, book);
+        const id = await this._bookDao.create(author.id, inputData);
+        await this._authorDao.assignBookToAuthor(author, id);
 
-        return book;
+        return Object.assign(inputData, { id });
     }
 
     _validatePages(pages) {
