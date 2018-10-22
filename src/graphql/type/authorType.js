@@ -11,7 +11,7 @@ export default new GraphQLObjectType({
         name: {type: GraphQLString},
         bio: {type: GraphQLString},
         birthday: {type: GraphQLString},
-        sex: {type: GraphQLString},
+        sex: {type: sexType},
         books: {type: new GraphQLList(bookType)}
     })
 });

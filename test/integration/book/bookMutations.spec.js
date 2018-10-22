@@ -68,11 +68,11 @@ describe('Book Mutations', () => {
         authorDaoMock.getById.mockReturnValue(null);
 
         const response = await sendRequest({ authorId: "ABC", input: newBook });
-        expect(response.statusCode).toBe(200); // @todo change error code
+        expect(response.statusCode).toBe(200);
         expect(response.body.errors[0].message).toEqual('Author does not exist');
     });
 
-    test('should create new author and return correct values', async () => {
+    test('should create new book and return correct values', async () => {
         const newBook = {
             title: 'New book',
             shortDescription: 'Description',
@@ -80,7 +80,7 @@ describe('Book Mutations', () => {
         };
 
         authorDaoMock.getById.mockReturnValue({ id: 'ABC_ID' });
-        bookDaoMock.getById.mockReturnValue(Object.assign({}, newBook, { id: "ABC" }));
+        bookDaoMock.create.mockReturnValue("ABC");
 
         const response = await sendRequest({ authorId: 'ABC_ID', input: newBook });
         expect(response.statusCode).toBe(200);

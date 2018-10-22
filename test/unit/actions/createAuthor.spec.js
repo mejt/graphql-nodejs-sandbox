@@ -14,14 +14,12 @@ describe('CreateBookAction', () => {
         const input = { name: 'John Doe' };
         const fakeAuthor = { id: authorId, name: input.name };
 
-        authorDao.getById.mockReturnValue(fakeAuthor);
         authorDao.create.mockReturnValue(authorId);
 
         const createBook = new CreateAuthor(authorDao);
         const result = await createBook.execute(input);
 
         expect(authorDao.create).toHaveBeenCalledWith(input);
-        expect(authorDao.getById).toHaveBeenCalledWith(authorId);
         expect(result).toEqual(fakeAuthor);
     });
 });
