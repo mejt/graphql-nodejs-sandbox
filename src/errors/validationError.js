@@ -4,10 +4,7 @@ import AppError from './appError';
 
 class ValidationError extends AppError {
     constructor(message) {
-        super();
-
-        this.message = message;
-        this.code = 400;
+        super(message, 400);
     }
 }
 

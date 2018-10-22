@@ -29,10 +29,4 @@ export default class CreateBookAction {
 
         return Object.assign(inputData, { id });
     }
-
-    _validatePages(pages) {
-        if (pages && pages <= 0) {
-            throw new ValidationError('Book must have more than 0 pages');
-        }
-    }
 }
