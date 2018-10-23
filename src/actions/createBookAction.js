@@ -10,7 +10,7 @@ export default class CreateBookAction {
     }
 
     async execute(authorId, inputData) {
-        if (inputData.pages && inputData.pages <= 0) {
+        if (Number.isInteger(inputData.pages) && inputData.pages <= 0) {
             throw new ValidationError('Book must have more than 0 pages');
         }
 

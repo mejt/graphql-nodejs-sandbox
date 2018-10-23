@@ -44,7 +44,9 @@
   "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "src/**/*.js"
+      "src/**/*.js",
+      "!src/index.js",
+      "!src/models/*.js"
     ]
   },
   "babel": {
