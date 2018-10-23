@@ -1,6 +1,7 @@
 'use strict';
 
 import CreateBook from './../../../src/actions/createBookAction';
+import { ValidationError } from './../../../src/errors';
 
 describe('CreateBookAction', () => {
     let bookDao;
@@ -40,4 +41,18 @@ describe('CreateBookAction', () => {
         expect(authorDao.assignBookToAuthor).toHaveBeenCalledWith(fakeAuthor, bookId);
         expect(result).toEqual(fakeBook);
     });
+
+    test('should throw error when try add book with 0 pages', async () => {
+        const fakeBook = { title: 'Title', id: '83729', pages: 0 };
+        const createBook = new CreateBook(bookDao, authorDao);
+
+        await expect(createBook.execute('1', fakeBook)).rejects.toThrowError(ValidationError);
+    });
+
+    test('should throw error when try add book with incorrect ISBN', async () => {
+        const fakeBook = { title: 'Title', id: '83729', isbn: '21-33-44' };
+        const createBook = new CreateBook(bookDao, authorDao);
+
+        await expect(createBook.execute('1', fakeBook)).rejects.toThrowError(ValidationError);
+    })
 });
