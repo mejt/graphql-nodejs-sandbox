@@ -30,6 +30,6 @@ export default function init(configurationProvider) {
             return { message: originalError.message, statusCode: originalError.code };
         }
 
-        return error;
+        return { message: error.message, statusCode: 500 };
     }
 }

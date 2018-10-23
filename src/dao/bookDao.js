@@ -16,6 +16,7 @@ export default class BookDao {
         data.author = authorId;
 
         const book = new this._authorModel(data);
-        return book.save();
+        return book.save()
+            .then(result => result._id);
     }
 }
