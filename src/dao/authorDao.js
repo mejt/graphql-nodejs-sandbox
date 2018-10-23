@@ -20,7 +20,8 @@ export default class AuthorDao {
 
     create(authorData) {
         const author = new this._authorModel(authorData);
-        return author.save();
+        return author.save()
+            .then(result => result._id);
     }
 
     assignBookToAuthor(author, bookId) {
