@@ -26,10 +26,18 @@ export default function init(configurationProvider) {
 
     function formatError(error) {
         const originalError = error.originalError;
-        if (originalError && originalError instanceof AppError) {
-            return { message: originalError.message, statusCode: originalError.code };
+
+        console.error('GraphQL Error', error);
+
+        if (originalError) {
+            if (originalError instanceof AppError) {
+                return { message: originalError.message, statusCode: originalError.code };
+            }
+
+
+            return { message: 'Something went wrong', statusCode: 500 }
         }
 
-        return { message: error.message, statusCode: 500 };
+        return { message: error.message, statusCode: 400 };
     }
 }
